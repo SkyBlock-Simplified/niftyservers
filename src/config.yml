@@ -1,0 +1,19 @@
+# Chest Interface Title
+window-name: 'Select A Server'
+
+# Chest Interface Command
+game-command: 'serv'
+
+# Center Chest Items
+center-icons: true
+
+# BungeeCord Server List
+servers:
+  survival:
+    name: '&2Survival' # Defaults to server name if blank
+    desc: '&7Click to play Survival' # Description that's shown below name
+    item: '2' # Item to use in inventory
+  pvp:
+    name: '&9PvP'
+    desc: '&7Click to play PvP'
+    item: '51'

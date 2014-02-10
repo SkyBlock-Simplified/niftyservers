@@ -1,0 +1,45 @@
+name: NiftyServers
+description: Addition for CommandHelper to get dynamic server info.
+version: 1
+website: http://emmz.com/
+author: Grichecth
+
+main: net.netcoding.niftyservers.NiftyServers
+depend: [Vault]
+
+commands:
+   screload:
+      description: Reloads the Config
+      usage: /<command>
+
+permissions:
+   niftyservers.*:
+     description: Gives access to all niftyservers options
+     children:
+       niftyservers.use.*: true
+       niftyservers.server.*: true
+   niftyservers.use.*:
+     description: Gives access to all Use options
+     children:
+       niftyservers.use.restricted: true
+       niftyservers.use.direct: true
+       niftyservers.use.list: true
+       niftyservers.use.chest: true
+   niftyservers.server.*:
+     description: Gives access to all Use options
+     default: op
+   niftyservers.use.restricted:
+     description: Allows you to see restricted servers
+     default: op
+   niftyservers.use.list:
+     description: Allows you to list servers
+     default: op
+   niftyservers.use.chest:
+     description: Allows you to open the chest
+     default: op
+   niftyservers.use.direct:
+     description: Allows you to directly access a server
+     default: op
+   niftyservers.reload:
+     description: Allows you to reload config.yml
+     default: op
