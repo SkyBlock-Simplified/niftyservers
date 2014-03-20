@@ -16,11 +16,9 @@ public class ServerReload extends BukkitCommand {
 
 	@Override
 	public void command(CommandSender sender, String alias, String[] args) throws SQLException, Exception {
-		if (isConsole(sender) || this.hasPermissions(sender, "niftyservers", "reload")) {
-			Cache.Config.reload();
-			Cache.Servers.reload();
-			this.getLog().message(sender, "Config reloaded.");
-		}
+		Cache.Config.reload();
+		Cache.Servers.reload();
+		this.getLog().message(sender, "%1$s reloaded.", this.getPluginDescription().getName());
 	}
 
 }
