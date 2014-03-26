@@ -23,7 +23,7 @@ public class Server extends BukkitTabCommand {
 	}
 
 	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
+	public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
 		return this.getServerNames(sender);
 	}
 
@@ -47,7 +47,7 @@ public class Server extends BukkitTabCommand {
 	}
 
 	@Override
-	public void command(CommandSender sender, String alias, String[] args) throws SQLException, Exception {
+	public void onCommand(CommandSender sender, String alias, String[] args) throws SQLException, Exception {
 		List<String> serverNames = this.getServerNames(sender);
 		String action = "";
 
