@@ -7,14 +7,13 @@ main: net.netcoding.niftyservers.NiftyServers
 depend: [NiftyBukkit]
 
 commands:
-  serverreload:
+  sreload:
     description: Reloads the config
     usage: /<command>
     permission: niftyservers.reload
-    aliases: sreload
   server:
     description: Opens a chest and/or lists servers to connect to
-    usage: "§c/<command> [server|list]"
+    usage: /<command> [server|list]
     aliases: [serv, ns, s]
 
 permissions:

@@ -42,4 +42,16 @@ public class ServerInfo {
 		return this.restricted;
 	}
 
+	public void setRestricted(boolean value) {
+		this.restricted = value;
+	}
+
+	public void setHidden(boolean value) {
+		this.hidden = value;
+	}
+
+	public void setItem(ItemStack item) {
+		this.item = item;
+	}
+
 }

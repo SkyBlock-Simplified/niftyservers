@@ -11,14 +11,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ServerReload extends BukkitCommand {
 
 	public ServerReload(JavaPlugin plugin) {
-		super(plugin, false);
+		super(plugin, "sreload");
+		this.setRequireArgs(false);
 	}
 
 	@Override
 	public void onCommand(CommandSender sender, String alias, String[] args) throws SQLException, Exception {
 		Cache.Config.reload();
 		Cache.Servers.reload();
-		this.getLog().message(sender, "%1$s reloaded.", this.getPluginDescription().getName());
+		this.getLog().message(sender, "{0} reloaded.", this.getPluginDescription().getName());
 	}
 
 }

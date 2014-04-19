@@ -4,11 +4,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.netcoding.niftybukkit.NiftyBukkit;
 import net.netcoding.niftybukkit.inventory.FakeInventoryInstance;
 import net.netcoding.niftybukkit.minecraft.BukkitTabCommand;
+import net.netcoding.niftybukkit.minecraft.BungeeHelper;
 import net.netcoding.niftybukkit.util.StringUtil;
-import net.netcoding.niftyservers.cache.ServerInfo;
 import net.netcoding.niftyservers.cache.Cache;
+import net.netcoding.niftyservers.cache.ServerInfo;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,7 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Server extends BukkitTabCommand {
 
 	public Server(JavaPlugin plugin) {
-		super(plugin);
+		super(plugin, "server");
 	}
 
 	@Override
@@ -30,7 +32,7 @@ public class Server extends BukkitTabCommand {
 	private List<String> getServerNames(CommandSender sender) {
 		List<String> matched = new ArrayList<>();
 
-		for (String serverName : Cache.BungeeHelper.getServerNames()) {
+		for (String serverName : NiftyBukkit.getBungeeHelper().getServerNames()) {
 			ServerInfo serverInfo = Cache.Servers.getServer(serverName);
 			if (serverInfo.isHidden()) continue;
 
@@ -48,6 +50,11 @@ public class Server extends BukkitTabCommand {
 
 	@Override
 	public void onCommand(CommandSender sender, String alias, String[] args) throws SQLException, Exception {
+		if (!BungeeHelper.bungeeOnline()) {
+			this.getLog().error(sender, "This command requires BungeeCord to function!");
+			return;
+		}
+
 		List<String> serverNames = this.getServerNames(sender);
 		String action = "";
 
@@ -61,8 +68,8 @@ public class Server extends BukkitTabCommand {
 
 					inventory.open();
 				} else {
-					String serverList = StringUtil.implode(String.format("%s, %s", ChatColor.GRAY, ChatColor.RED), serverNames);
-					this.getLog().message(sender, "You are currently connected to {%1$s}\nServers you can currently connect to: {%1$s}", Cache.BungeeHelper.getServerName(), serverList);
+					String serverList = StringUtil.implode(StringUtil.format("{0}, {1}", ChatColor.GRAY, ChatColor.RED), serverNames);
+					this.getLog().message(sender, "Current Server: {{0}}\nYou can connect to: {{1}}", NiftyBukkit.getBungeeHelper().getServerName(), serverList);
 				}
 			}
 		} else {
@@ -77,7 +84,7 @@ public class Server extends BukkitTabCommand {
 
 				if (serverInfo != null) {
 					if (this.hasPermissions(sender, "server", serverName))
-						Cache.BungeeHelper.connect((Player)sender, serverName);
+						NiftyBukkit.getBungeeHelper().connect((Player)sender, serverName);
 				}
 			} else
 				this.showUsage(sender);

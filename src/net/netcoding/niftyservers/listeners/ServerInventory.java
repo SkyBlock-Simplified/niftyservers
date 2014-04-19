@@ -1,5 +1,6 @@
 package net.netcoding.niftyservers.listeners;
 
+import net.netcoding.niftybukkit.NiftyBukkit;
 import net.netcoding.niftybukkit.inventory.FakeInventoryListener;
 import net.netcoding.niftybukkit.minecraft.BukkitHelper;
 import net.netcoding.niftybukkit.util.RegexUtil;
@@ -28,12 +29,12 @@ public class ServerInventory extends BukkitHelper implements FakeInventoryListen
 		ItemStack currentItem = event.getClick().isShiftClick() ? event.getCursor() : event.getCurrentItem();
 		String itemName = RegexUtil.strip(currentItem.getItemMeta().getDisplayName(), RegexUtil.VANILLA_PATTERN);
 
-		for (String serverName : Cache.BungeeHelper.getServerNames()) {
+		for (String serverName : NiftyBukkit.getBungeeHelper().getServerNames()) {
 			ServerInfo serverInfo = Cache.Servers.getServer(serverName);
 
 			if (serverInfo.getDisplayName(true).equals(itemName)) {
 				player.closeInventory();
-				Cache.BungeeHelper.connect(player, serverName);
+				NiftyBukkit.getBungeeHelper().connect(player, serverName);
 				break;
 			}
 		}
