@@ -13,21 +13,18 @@ commands:
     permission: niftyservers.reload
   server:
     description: Opens a chest and/or lists servers to connect to
-    usage: /<command> [server|list]
-    aliases: [serv, ns, s]
+    usage: /<command> [server|chest|list]
+    aliases: [serv, ns]
 
 permissions:
   niftyservers.*:
     description: Gives access to all plugin features and commands
     children:
       niftyservers.chest:
-        description: Allows you to place and use blacklisted items
-        default: true
-      niftyservers.list:
-        description: Allows you to spawn or pull items from the creative inventory, without lore
+        description: Allows you to view the server selection screen
         default: true
       niftyservers.restricted.*:
-        description: Allows you to access all restricted servers
+        description: Allows you to list and access all restricted servers
       niftyservers.reload:
         description: Allows you to reload the plugin config
       niftyservers.server:

@@ -9,17 +9,17 @@ import org.bukkit.inventory.ItemStack;
 public class ServerInfo {
 
 	private static final transient ItemStack DEFAULT_ITEM;
-	private String displayName = "";
 	private boolean restricted = false;
 	private boolean hidden = false;
+	private String serverName = "";
 	private ItemStack item = DEFAULT_ITEM;
 
 	static {
-		DEFAULT_ITEM = NiftyBukkit.getItemDatabase().get("2", 1);
+		DEFAULT_ITEM = NiftyBukkit.getItemDatabase().get("GRASS", 1);
 	}
 
 	public ServerInfo(String serverName) {
-		this.displayName = serverName;
+		this.serverName = serverName;
 	}
 
 	public String getDisplayName() {
@@ -27,11 +27,16 @@ public class ServerInfo {
 	}
 
 	public String getDisplayName(boolean stripVanilla) {
-		return StringUtil.notEmpty(this.displayName) ? (stripVanilla ? RegexUtil.strip(this.displayName, RegexUtil.VANILLA_PATTERN) : this.displayName) : "";
+		String displayName = this.getItem().getItemMeta().getDisplayName();
+		return StringUtil.notEmpty(displayName) ? (stripVanilla ? RegexUtil.strip(displayName, RegexUtil.VANILLA_PATTERN) : displayName) : "";
 	}
 
 	public ItemStack getItem() {
 		return this.item == null ? DEFAULT_ITEM : this.item;
+	}
+
+	public String getServerName() {
+		return this.serverName;
 	}
 
 	public boolean isHidden() {

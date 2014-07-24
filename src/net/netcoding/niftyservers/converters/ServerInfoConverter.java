@@ -21,7 +21,8 @@ public class ServerInfoConverter extends net.netcoding.niftybukkit.yaml.converte
 	@Override
 	public Object fromConfig(Class<?> type, Object obj, ParameterizedType genericType) throws Exception {
 		Map<String, Object> map = (Map<String, Object>)(obj instanceof Map ? obj : ((ConfigSection)obj).getRawMap());
-		ServerInfo info = new ServerInfo((String)map.get("displayName"));
+		if (map.get("server") == null) return null;
+		ServerInfo info = new ServerInfo((String)map.get("server"));
 		info.setRestricted((boolean)map.get("restricted"));
 		info.setHidden((boolean)map.get("hidden"));
 		Converter itemStackConverter = this.getConverter(org.bukkit.inventory.ItemStack.class);
@@ -33,7 +34,6 @@ public class ServerInfoConverter extends net.netcoding.niftybukkit.yaml.converte
 	public Object toConfig(Class<?> type, Object obj, ParameterizedType genericType) throws Exception {
 		ServerInfo info = (ServerInfo)obj;
 		Map<String, Object> saveMap = new HashMap<>();
-		saveMap.put("displayName", info.getDisplayName());
 		saveMap.put("restricted", info.isRestricted());
 		saveMap.put("hidden", info.isHidden());
 		Converter itemStackConverter = this.getConverter(org.bukkit.inventory.ItemStack.class);
