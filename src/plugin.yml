@@ -1,5 +1,5 @@
 name: NiftyServers
-version: 2.0
+version: 1.1.0
 website: http://netcoding.net/
 author: Brian Graham
 
@@ -14,7 +14,7 @@ commands:
   server:
     description: Opens a chest and/or lists servers to connect to
     usage: /<command> [server|chest|list]
-    aliases: [serv, ns]
+    aliases: [nserver, serv, ns]
 
 permissions:
   niftyservers.*:
