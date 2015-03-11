@@ -23,15 +23,13 @@ permissions:
       niftyservers.chest:
         description: Allows you to view the server selection screen
         default: true
-      niftyservers.restricted.*:
-        description: Allows you to list and access all restricted servers
       niftyservers.reload:
         description: Allows you to reload the plugin config
-      niftyservers.server:
-        description: Allows you to run the server command
-        default: true
       niftyservers.server.*:
         description: Gives you access to all servers
         default: true
         children:
-          niftyservers.server: true
+          niftyservers.server:
+            description: Allows you to run the server command
+          niftyservers.server.restricted.*:
+            description: Allows you to list and access all restricted servers

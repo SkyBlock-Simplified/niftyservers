@@ -17,6 +17,10 @@ public class ServerReload extends BukkitCommand {
 	public void onCommand(CommandSender sender, String alias, String[] args) throws Exception {
 		Cache.Config.reload();
 		Cache.Servers.reload();
+		Cache.Inventory.closeAll();
+		Cache.Inventory.setAutoCenter(Cache.Config.isItemsCentered());
+		Cache.Inventory.setTitle(Cache.Config.getTitle());
+		Cache.Inventory.setItemOpener(Cache.Config.getItemOpener());
 		this.getLog().message(sender, "{0} reloaded.", this.getPluginDescription().getName());
 	}
 

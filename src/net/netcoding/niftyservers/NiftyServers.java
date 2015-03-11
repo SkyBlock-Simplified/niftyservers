@@ -26,7 +26,16 @@ public class NiftyServers extends BukkitPlugin {
 
 		this.getLog().console("Registering Listeners");
 		new ServerLoaded(this);
-		Cache.Inventory = new FakeInventory(this, new ServerInventory(this), true);
+		Cache.Inventory = new FakeInventory(this, new ServerInventory(this));
+		Cache.Inventory.setAutoCancelled();
+		Cache.Inventory.setAutoCenter(Cache.Config.isItemsCentered());
+		Cache.Inventory.setTitle(Cache.Config.getTitle());
+		Cache.Inventory.setItemOpener(Cache.Config.getItemOpener());
+	}
+
+	@Override
+	public void onDisable() {
+		Cache.Inventory.destroy();
 	}
 
 }

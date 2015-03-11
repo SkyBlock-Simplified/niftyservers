@@ -1,5 +1,6 @@
 package net.netcoding.niftyservers.listeners;
 
+import net.netcoding.niftybukkit.NiftyBukkit;
 import net.netcoding.niftybukkit.minecraft.BukkitListener;
 import net.netcoding.niftybukkit.minecraft.events.BungeeLoadedEvent;
 import net.netcoding.niftybukkit.minecraft.events.BungeeServerLoadedEvent;
@@ -17,6 +18,7 @@ public class ServerLoaded extends BukkitListener {
 	@EventHandler
 	public void onBungeeLoaded(BungeeLoadedEvent event) {
 		Cache.Servers.save();
+		Cache.Inventory.setTotalSlots(NiftyBukkit.getBungeeHelper().getServers().size());
 	}
 
 	@EventHandler

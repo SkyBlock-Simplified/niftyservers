@@ -11,15 +11,10 @@ public class ServerInfo {
 	private static final transient ItemStack DEFAULT_ITEM;
 	private boolean restricted = false;
 	private boolean hidden = false;
-	private String serverName = "";
 	private ItemStack item = DEFAULT_ITEM;
 
 	static {
 		DEFAULT_ITEM = NiftyBukkit.getItemDatabase().get("GRASS", 1);
-	}
-
-	public ServerInfo(String serverName) {
-		this.serverName = serverName;
 	}
 
 	public String getDisplayName() {
@@ -32,11 +27,7 @@ public class ServerInfo {
 	}
 
 	public ItemStack getItem() {
-		return this.item == null ? DEFAULT_ITEM : this.item;
-	}
-
-	public String getServerName() {
-		return this.serverName;
+		return (this.item == null ? DEFAULT_ITEM : this.item).clone();
 	}
 
 	public boolean isHidden() {
@@ -55,8 +46,8 @@ public class ServerInfo {
 		this.hidden = value;
 	}
 
-	public void setItem(ItemStack item) {
-		this.item = item;
+	public void setItem(ItemStack obj) {
+		this.item = obj;
 	}
 
 }
