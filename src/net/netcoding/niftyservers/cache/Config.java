@@ -3,6 +3,8 @@ package net.netcoding.niftyservers.cache;
 import net.netcoding.niftybukkit.NiftyBukkit;
 import net.netcoding.niftybukkit.yaml.annotations.Comment;
 import net.netcoding.niftybukkit.yaml.annotations.Path;
+import net.netcoding.niftybukkit.yaml.exceptions.InvalidConfigurationException;
+import net.netcoding.niftyservers.NiftyServers;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,6 +40,18 @@ public class Config extends net.netcoding.niftybukkit.yaml.Config {
 
 	public boolean isItemsCentered() {
 		return this.centerItems;
+	}
+
+	@Override
+	public void reload() throws InvalidConfigurationException {
+		super.reload();
+
+		if (NiftyServers.getFakeInventory() != null) {
+			NiftyServers.getFakeInventory().closeAll();
+			NiftyServers.getFakeInventory().setAutoCenter(this.isItemsCentered());
+			NiftyServers.getFakeInventory().setTitle(this.getTitle());
+			NiftyServers.getFakeInventory().setItemOpener(this.getItemOpener());
+		}
 	}
 
 	public boolean showOfflineServers() {
