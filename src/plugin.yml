@@ -7,14 +7,10 @@ main: net.netcoding.niftyservers.NiftyServers
 depend: [NiftyBukkit]
 
 commands:
-  sreload:
-    description: Reloads the config
-    usage: /<command>
-    permission: niftyservers.reload
-  server:
+  servers:
     description: Opens a chest and/or lists servers to connect to
     usage: /<command> [server|chest|list]
-    aliases: [nserver, serv, ns]
+    aliases: [nservers, nserver, server, serv, serv, ns]
 
 permissions:
   niftyservers.*:
@@ -23,13 +19,11 @@ permissions:
       niftyservers.chest:
         description: Allows you to view the server selection screen
         default: true
-      niftyservers.reload:
-        description: Allows you to reload the plugin config
       niftyservers.server.*:
         description: Gives you access to all servers
         default: true
         children:
           niftyservers.server:
             description: Allows you to run the server command
-          niftyservers.server.restricted.*:
-            description: Allows you to list and access all restricted servers
+      niftyservers.restricted.server.*:
+        description: Allows you to list and access all restricted servers
