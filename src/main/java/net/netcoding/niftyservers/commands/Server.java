@@ -5,9 +5,9 @@ import java.util.List;
 
 import net.netcoding.niftybukkit.NiftyBukkit;
 import net.netcoding.niftybukkit.minecraft.BukkitCommand;
-import net.netcoding.niftybukkit.mojang.MojangProfile;
-import net.netcoding.niftybukkit.mojang.exceptions.ProfileNotFoundException;
-import net.netcoding.niftybukkit.util.ListUtil;
+import net.netcoding.niftybukkit.mojang.BukkitMojangProfile;
+import net.netcoding.niftycore.mojang.exceptions.ProfileNotFoundException;
+import net.netcoding.niftycore.util.ListUtil;
 import net.netcoding.niftyservers.NiftyServers;
 import net.netcoding.niftyservers.cache.ServerInfo;
 import net.netcoding.niftyservers.listeners.ServerInventory;
@@ -28,7 +28,7 @@ public class Server extends BukkitCommand {
 	@Override
 	public void onCommand(CommandSender sender, String alias, String[] args) throws Exception {
 		String action = isConsole(sender) ? "list" : (ListUtil.isEmpty(args) ? "chest" : args[0]);
-		MojangProfile profile = null;
+		BukkitMojangProfile profile = null;
 
 		if (isPlayer(sender)) {
 			try {

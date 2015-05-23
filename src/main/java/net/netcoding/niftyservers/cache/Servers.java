@@ -2,17 +2,16 @@ package net.netcoding.niftyservers.cache;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import net.netcoding.niftybukkit.yaml.Config;
 import net.netcoding.niftyservers.converters.ServerInfoConverter;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Servers extends Config {
+public class Servers extends net.netcoding.niftycore.yaml.Config {
 
 	private ConcurrentHashMap<String, ServerInfo> serverList = new ConcurrentHashMap<>();
 
 	public Servers(JavaPlugin plugin) {
-		super(plugin, "servers");
+		super(plugin.getDataFolder(), "servers");
 		this.addCustomConverter(ServerInfoConverter.class);
 	}
 

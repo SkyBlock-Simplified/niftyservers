@@ -1,8 +1,8 @@
 package net.netcoding.niftyservers.cache;
 
 import net.netcoding.niftybukkit.NiftyBukkit;
-import net.netcoding.niftybukkit.util.RegexUtil;
-import net.netcoding.niftybukkit.util.StringUtil;
+import net.netcoding.niftycore.util.RegexUtil;
+import net.netcoding.niftycore.util.StringUtil;
 
 import org.bukkit.inventory.ItemStack;
 

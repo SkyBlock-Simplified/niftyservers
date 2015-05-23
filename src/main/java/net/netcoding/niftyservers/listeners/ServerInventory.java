@@ -10,12 +10,14 @@ import net.netcoding.niftybukkit.inventory.events.InventoryClickEvent;
 import net.netcoding.niftybukkit.inventory.events.InventoryCloseEvent;
 import net.netcoding.niftybukkit.inventory.events.InventoryItemInteractEvent;
 import net.netcoding.niftybukkit.inventory.events.InventoryOpenEvent;
+import net.netcoding.niftybukkit.inventory.items.ItemData;
 import net.netcoding.niftybukkit.minecraft.BukkitHelper;
-import net.netcoding.niftybukkit.mojang.MojangProfile;
-import net.netcoding.niftybukkit.mojang.exceptions.ProfileNotFoundException;
-import net.netcoding.niftybukkit.util.ListUtil;
-import net.netcoding.niftybukkit.util.StringUtil;
-import net.netcoding.niftyservers.cache.Cache;
+import net.netcoding.niftybukkit.minecraft.messages.BungeeServer;
+import net.netcoding.niftybukkit.mojang.BukkitMojangProfile;
+import net.netcoding.niftycore.mojang.MojangProfile;
+import net.netcoding.niftycore.util.ListUtil;
+import net.netcoding.niftycore.util.StringUtil;
+import net.netcoding.niftyservers.NiftyServers;
 import net.netcoding.niftyservers.cache.ServerInfo;
 
 import org.bukkit.ChatColor;
@@ -35,28 +37,30 @@ public class ServerInventory extends BukkitHelper implements FakeInventoryListen
 		List<String> matched = new ArrayList<>();
 
 		for (String serverName : NiftyBukkit.getBungeeHelper().getServerNames()) {
-			ServerInfo serverInfo = Cache.Servers.getServer(serverName);
+			ServerInfo serverInfo = NiftyServers.getServersConfig().getServer(serverName);
 			if (serverInfo.isHidden()) continue;
-			if (!Cache.Config.showOfflineServers() && !NiftyBukkit.getBungeeHelper().getServer(serverName).isOnline()) continue;
+			if (!NiftyServers.getPluginConfig().showOfflineServers() && !NiftyBukkit.getBungeeHelper().getServer(serverName).isOnline()) continue;
 
 			if (serverInfo.isRestricted()) {
-				if (!NiftyBukkit.getPlugin().hasPermissions(sender, "server", "restricted", serverName))
+				if (!NiftyBukkit.getPlugin().hasPermissions(sender, "restricted", "server", serverName))
 					continue;
 			}
 
-			if (NiftyBukkit.getPlugin().hasPermissions(sender, "server", serverName))
+			if (NiftyServers.getPlugin(NiftyServers.class).hasPermissions(sender, "server", serverName))
 				matched.add(serverName);
 		}
 
 		return matched;
 	}
 
-	public static void processChest(MojangProfile profile) {
-		FakeInventoryInstance inventory = Cache.Inventory.newInstance(profile);
+	public static void processChest(BukkitMojangProfile profile) {
+		FakeInventoryInstance inventory = NiftyServers.getFakeInventory().newInstance(profile);
 
 		for (String serverName : getServerNames(profile.getOfflinePlayer().getPlayer())) {
-			ServerInfo serverInfo = Cache.Servers.getServer(serverName);
+			BungeeServer server = NiftyBukkit.getBungeeHelper().getServer(serverName);
+			ServerInfo serverInfo = NiftyServers.getServersConfig().getServer(serverName);
 			ItemStack item = serverInfo.getItem();
+			if (server.isCurrentServer()) item = ItemData.addGlow(item);
 
 			if (StringUtil.isEmpty(serverInfo.getDisplayName())) {
 				ItemMeta meta = item.getItemMeta();
@@ -74,27 +78,22 @@ public class ServerInventory extends BukkitHelper implements FakeInventoryListen
 		List<String> serverNames = getServerNames(sender);
 
 		if (ListUtil.notEmpty(serverNames)) {
+			String current = isConsole(sender) ? "Current Server" : "You are on";
+			String players = isConsole(sender) ? "Players" : "You";
 			String serverList = StringUtil.implode(StringUtil.format("{0}, {1}", ChatColor.GRAY, ChatColor.RED), serverNames);
-			NiftyBukkit.getPlugin().getLog().message(sender, "You are on: {{0}}\nYou can connect to: {{1}}", NiftyBukkit.getBungeeHelper().getServerName(), serverList);
+			NiftyBukkit.getPlugin().getLog().message(sender, "{0}: {{1}}\n{2} can connect to: {{3}}", current, NiftyBukkit.getBungeeHelper().getServerName(), players, serverList);
 		} else
 			NiftyBukkit.getPlugin().getLog().error(sender, "You cannot list the servers!");
 	}
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent event) {
-		Player player = event.getProfile().getOfflinePlayer().getPlayer();
+		MojangProfile profile = event.getProfile();
+		Player player = ((BukkitMojangProfile)profile).getOfflinePlayer().getPlayer();
 		ItemStack currentItem = event.getClickedItem();
-		MojangProfile profile;
 
-		try {
-			profile = NiftyBukkit.getMojangRepository().searchByPlayer(player);
-		} catch (ProfileNotFoundException pnfe) {
-			this.getLog().error(player, "Unable to locate the profile of {{0}}!", player.getName());
-			return;
-		}
-
-		for (String serverName : Cache.Servers.getServerList().keySet()) {
-			ServerInfo serverInfo = Cache.Servers.getServer(serverName);
+		for (String serverName : NiftyServers.getServersConfig().getServerList().keySet()) {
+			ServerInfo serverInfo = NiftyServers.getServersConfig().getServer(serverName);
 			String name = StringUtil.isEmpty(serverInfo.getDisplayName()) ? serverName : serverInfo.getDisplayName();
 
 			if (name.equals(currentItem.getItemMeta().getDisplayName())) {

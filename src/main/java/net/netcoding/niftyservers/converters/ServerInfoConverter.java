@@ -4,14 +4,15 @@ import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.netcoding.niftybukkit.yaml.ConfigSection;
-import net.netcoding.niftybukkit.yaml.InternalConverter;
+import net.netcoding.niftycore.yaml.ConfigSection;
+import net.netcoding.niftycore.yaml.InternalConverter;
+import net.netcoding.niftycore.yaml.converters.Converter;
 import net.netcoding.niftyservers.cache.ServerInfo;
 
 import org.bukkit.inventory.ItemStack;
 
 @SuppressWarnings("unchecked")
-public class ServerInfoConverter extends net.netcoding.niftybukkit.yaml.converters.Converter {
+public class ServerInfoConverter extends Converter {
 
 	public ServerInfoConverter(InternalConverter converter) {
 		super(converter);

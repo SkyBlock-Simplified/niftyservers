@@ -1,9 +1,9 @@
-name: NiftyServers
-version: 1.1.0
-website: http://netcoding.net/
-author: Brian Graham
+name: ${project.name}
+version: ${project.version}
+website: ${project.url}
+author: ${author}
 
-main: net.netcoding.niftyservers.NiftyServers
+main: ${project.groupId}.${project.artifactId}.${project.name}
 depend: [NiftyBukkit]
 
 commands:
