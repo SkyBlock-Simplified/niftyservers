@@ -1,8 +1,5 @@
 package net.netcoding.niftyservers.listeners;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.netcoding.niftybukkit.NiftyBukkit;
 import net.netcoding.niftybukkit.inventory.FakeInventoryInstance;
 import net.netcoding.niftybukkit.inventory.FakeInventoryListener;
@@ -14,18 +11,19 @@ import net.netcoding.niftybukkit.inventory.items.ItemData;
 import net.netcoding.niftybukkit.minecraft.BukkitHelper;
 import net.netcoding.niftybukkit.minecraft.messages.BungeeServer;
 import net.netcoding.niftybukkit.mojang.BukkitMojangProfile;
-import net.netcoding.niftycore.mojang.MojangProfile;
 import net.netcoding.niftycore.util.ListUtil;
 import net.netcoding.niftycore.util.StringUtil;
 import net.netcoding.niftyservers.NiftyServers;
 import net.netcoding.niftyservers.cache.ServerInfo;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServerInventory extends BukkitHelper implements FakeInventoryListener {
 
@@ -88,8 +86,8 @@ public class ServerInventory extends BukkitHelper implements FakeInventoryListen
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent event) {
-		MojangProfile profile = event.getProfile();
-		Player player = ((BukkitMojangProfile)profile).getOfflinePlayer().getPlayer();
+		BukkitMojangProfile profile = event.getProfile();
+		Player player = profile.getOfflinePlayer().getPlayer();
 		ItemStack currentItem = event.getClickedItem();
 
 		for (String serverName : NiftyServers.getServersConfig().getServerList().keySet()) {
