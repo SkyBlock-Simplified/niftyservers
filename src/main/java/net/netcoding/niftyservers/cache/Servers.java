@@ -1,14 +1,14 @@
 package net.netcoding.niftyservers.cache;
 
-import java.util.concurrent.ConcurrentHashMap;
-
+import net.netcoding.niftybukkit.yaml.BukkitConfig;
 import net.netcoding.niftyservers.converters.ServerInfoConverter;
-
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Servers extends net.netcoding.niftycore.yaml.Config {
+import java.util.concurrent.ConcurrentHashMap;
 
-	private ConcurrentHashMap<String, ServerInfo> serverList = new ConcurrentHashMap<>();
+public class Servers extends BukkitConfig {
+
+	private final ConcurrentHashMap<String, ServerInfo> serverList = new ConcurrentHashMap<>();
 
 	public Servers(JavaPlugin plugin) {
 		super(plugin.getDataFolder(), "servers");

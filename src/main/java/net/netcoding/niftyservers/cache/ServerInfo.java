@@ -9,13 +9,14 @@ import org.bukkit.inventory.ItemStack;
 public class ServerInfo {
 
 	private static final transient ItemStack DEFAULT_ITEM;
-	private boolean restricted = false;
-	private boolean hidden = false;
-	private ItemStack item = DEFAULT_ITEM;
 
 	static {
 		DEFAULT_ITEM = NiftyBukkit.getItemDatabase().get("GRASS", 1);
 	}
+
+	private boolean restricted = false;
+	private boolean hidden = false;
+	private ItemStack item = DEFAULT_ITEM;
 
 	public String getDisplayName() {
 		return this.getDisplayName(false);
