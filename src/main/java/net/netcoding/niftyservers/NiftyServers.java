@@ -43,15 +43,15 @@ public class NiftyServers extends BukkitPlugin {
 		getFakeInventory().destroy();
 	}
 
-	public final static FakeInventory getFakeInventory() {
+	public static FakeInventory getFakeInventory() {
 		return fakeInventory;
 	}
 
-	public final static Config getPluginConfig() {
+	public static Config getPluginConfig() {
 		return pluginConfig;
 	}
 
-	public final static Servers getServersConfig() {
+	public static Servers getServersConfig() {
 		return serversConfig;
 	}
 
