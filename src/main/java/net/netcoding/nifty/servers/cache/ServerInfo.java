@@ -1,17 +1,17 @@
-package net.netcoding.niftyservers.cache;
+package net.netcoding.nifty.servers.cache;
 
-import net.netcoding.niftybukkit.NiftyBukkit;
-import net.netcoding.niftycore.util.RegexUtil;
-import net.netcoding.niftycore.util.StringUtil;
+import net.netcoding.nifty.common.Nifty;
+import net.netcoding.nifty.common.minecraft.inventory.item.ItemStack;
+import net.netcoding.nifty.core.util.RegexUtil;
+import net.netcoding.nifty.core.util.StringUtil;
+import net.netcoding.nifty.core.yaml.YamlMap;
 
-import org.bukkit.inventory.ItemStack;
-
-public class ServerInfo {
+public class ServerInfo extends YamlMap {
 
 	private static final transient ItemStack DEFAULT_ITEM;
 
 	static {
-		DEFAULT_ITEM = NiftyBukkit.getItemDatabase().get("GRASS", 1);
+		DEFAULT_ITEM = Nifty.getItemDatabase().get("GRASS", 1);
 	}
 
 	private boolean restricted = false;

@@ -1,14 +1,13 @@
-package net.netcoding.niftyservers.cache;
+package net.netcoding.nifty.servers.cache;
 
-import net.netcoding.niftybukkit.NiftyBukkit;
-import net.netcoding.niftybukkit.yaml.BukkitConfig;
-import net.netcoding.niftycore.yaml.annotations.Comment;
-import net.netcoding.niftycore.yaml.annotations.Path;
-import net.netcoding.niftycore.yaml.exceptions.InvalidConfigurationException;
-import net.netcoding.niftyservers.NiftyServers;
-
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
+import net.netcoding.nifty.common.Nifty;
+import net.netcoding.nifty.common.api.plugin.MinecraftPlugin;
+import net.netcoding.nifty.common.minecraft.inventory.item.ItemStack;
+import net.netcoding.nifty.common.yaml.BukkitConfig;
+import net.netcoding.nifty.core.yaml.annotations.Comment;
+import net.netcoding.nifty.core.yaml.annotations.Path;
+import net.netcoding.nifty.core.yaml.exceptions.InvalidConfigurationException;
+import net.netcoding.nifty.servers.NiftyServers;
 
 public class Config extends BukkitConfig {
 
@@ -25,9 +24,9 @@ public class Config extends BukkitConfig {
 
 	@Path("item-opener")
 	@Comment("Adds item to your inventory to open the chest of servers")
-	private ItemStack itemOpener = NiftyBukkit.getItemDatabase().get("0");
+	private ItemStack itemOpener = Nifty.getItemDatabase().get("0");
 
-	public Config(JavaPlugin plugin) {
+	public Config(MinecraftPlugin plugin) {
 		super(plugin.getDataFolder(), "config");
 	}
 
